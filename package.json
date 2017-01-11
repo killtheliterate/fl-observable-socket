@@ -1,6 +1,6 @@
 {
   "name": "fl-observable-socket",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "",
   "main": "dist/index.js",
   "module": "src/index.js",
@@ -28,7 +28,6 @@
   "dependencies": {
     "@most/create": "^2.0.1",
     "fluture": "^4.3.0",
-    "most": "^1.1.1",
-    "ramda": "^0.23.0"
+    "most": "^1.1.1"
   }
 }

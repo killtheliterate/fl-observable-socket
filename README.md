@@ -34,6 +34,28 @@ socket.down
     .catch(err => console.error(err))
 ```
 
+```html
+<script type="text/javascript" src="https://unpkg.com/fluture@4.3.0"></script>
+<script type="text/javascript" src="https://unpkg.com/most@1.1.1/dist/most"></script>
+<script type="text/javascript" src="https://unpkg.com/@most/create@2.0.1"></script>
+<script type="text/javascript" src="https://unpkg.com/fl-observable-socket@1.0.0-rc2/dist/index.js"></script>
+
+<script>
+    var socket = FLObservableSocket(new WebSocket('wss://echo.websocket.org'))
+
+    // Send messages up the socket
+    socket.up('hello')
+        .fork(e => console.error(e), a => console.log(a))
+
+    // Receive messages down the socket
+    socket.down
+        .observe(msg => console.log(msg))
+        .then(() => console.log('done'))
+        .catch(err => console.error(err))
+</script>
+
+```
+
 ## API:
 
 `up`: A [`Future`](https://github.com/Avaq/Fluture)

@@ -10,6 +10,29 @@ module.exports = {
     libraryTarget: 'umd'
   },
 
+  externals: {
+    'most': {
+      commonjs: 'most',
+      commonjs2: 'most',
+      amd: 'most',
+      root: 'most'
+    },
+
+    '@most/create': {
+      commonjs: '@most/create',
+      commonjs2: '@most/create',
+      amd: 'mostCreate',
+      root: 'mostCreate'
+    },
+
+    'fluture/es5': {
+      commonjs: 'fluture/es5',
+      commonjs2: 'fluture/es5',
+      amd: 'Fluture',
+      root: 'Fluture'
+    }
+  },
+
   module: {
     rules: [
       {
