@@ -1,5 +1,4 @@
 var path = require('path')
-var webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.js',
@@ -7,8 +6,8 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'MathSocket',
-    libraryTarget: 'umd',
+    library: 'FLObservableSocket',
+    libraryTarget: 'umd'
   },
 
   module: {
@@ -22,8 +21,8 @@ module.exports = {
           presets: [
             ['es2015', {'modules': false}]
           ]
-        },
-      },
-    ],
-  },
+        }
+      }
+    ]
+  }
 }

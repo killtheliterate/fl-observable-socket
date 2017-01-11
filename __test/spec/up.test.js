@@ -1,58 +1,59 @@
-import create from '../../dist/index'
 import EventEmitter from 'events'
+import { expect } from 'chai'
 
-function send (socket, msg) {
-  return socket.up(msg)
-}
+import create from '../../dist/index'
 
-function noop () {
-  return null
-}
+const send = (socket, msg) => socket.up(msg)
+const noop = () => null
 
 describe('up', function () {
-    it('sends messages', function (done) {
-      const ws = new EventEmitter()
+  it('sends messages', function (done) {
+    const ws = new EventEmitter()
 
-      ws.readyState = 1
-      let sendCount = 0
-      ws.send = function () {
-        if (sendCount < 2) {
-          sendCount += 1
-        } else {
-          throw new Error('Socket error')
-        }
-      }
+    ws.readyState = 1
 
-      const mathSocket = create(ws)
+    ws.send = function (msg) {
+      expect(msg).to.equal('hello human...')
+      done()
+    }
 
-      const send = (socket, msg) => socket
-        .up(msg)
-        .fork(done, noop)
+    const socket = create(ws)
 
-      send(mathSocket, 1).fork(done, noop)
-      send(mathSocket, 2).fork(done, noop)
-      send(mathSocket, 3).fork(done, noop)
-    })
+    send(socket, 'hello human...').fork(done, noop)
+  })
 
-  it('err', function (done) {
-      const ws = new EventEmitter()
-      ws.readyState = 1
+  it('waits to send messages until the socket is ready', function (done) {
+    const ws = new EventEmitter()
 
-      let sendCount = 0
+    ws.send = function (msg) {
+      expect(msg).to.equal('hello human...')
+      done()
+    }
 
-      ws.send = function (msg) {
-        if (sendCount < 2) {
-          sendCount += 1
-        } else {
-          throw new Error('Socket error')
-        }
-      }
+    const socket = create(ws)
 
-      const mathSocket = create(ws)
+    send(socket, 'hello human...').fork(done, noop)
 
-      mathSocket.up('hello')
-      mathSocket.up('world')
-      mathSocket.up('no, you hey')
-    done()
+    setTimeout(() => ws.emit('open'), 50)
+  })
+
+  it('handles errors', function (done) {
+    const ws = new EventEmitter()
+
+    ws.readyState = 1
+
+    ws.send = function () {
+      throw new Error('blech')
+    }
+
+    const socket = create(ws)
+
+    send(socket, 'hello human...').fork(
+            function (err) {
+              expect(err.message).to.equal('blech')
+              done()
+            },
+            noop
+        )
   })
 })
