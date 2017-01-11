@@ -1,7 +1,7 @@
-import EventEmitter from 'events'
-import { expect } from 'chai'
+var EventEmitter = require('events')
+var expect = require('chai').expect
 
-import create from '../../dist/index'
+var create = require('../../dist/index')
 
 const send = (socket, msg) => socket.up(msg)
 const noop = () => null

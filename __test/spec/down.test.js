@@ -1,7 +1,7 @@
-import EventEmitter from 'events'
-import { expect } from 'chai'
+var EventEmitter = require('events')
+var expect = require('chai').expect
 
-import create from '../../dist/index'
+var create = require('../../dist/index')
 
 const sum = (acc, el) => acc + el
 const noop = () => null
@@ -23,9 +23,9 @@ describe('down', function () {
       })
       .catch(done)
 
-    ws.emit('message', [1])
-    ws.emit('message', [2])
-    ws.emit('message', [3])
+    ws.emit('message', 1)
+    ws.emit('message', 2)
+    ws.emit('message', 3)
     ws.emit('close')
   })
 

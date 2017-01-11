@@ -1,18 +1,13 @@
 import { create } from '@most/create'
 import { fromEvent } from 'most'
-import { has, head } from 'ramda'
 
 import { Future } from 'fluture/es5'
-
-const fromMessage = _ws => has('WebSocket', global)
-  ? fromEvent('message', _ws).map(msg => msg.data)
-  : fromEvent('message', _ws).map(msg => head(msg))
 
 function FLSocket (_ws) {
   const _open = fromEvent('open', _ws)
   const _close = fromEvent('close', _ws)
   const _error = fromEvent('error', _ws)
-  const _messages = fromMessage(_ws)
+  const _messages = fromEvent('message', _ws)
 
   const ready = () => _ws.readyState === 1
 
