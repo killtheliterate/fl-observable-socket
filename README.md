@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/killtheliterate/fl-observable-socket.svg?branch=master)](https://travis-ci.org/killtheliterate/fl-observable-socket)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![npm version](https://badge.fury.io/js/fl-observable-socket.svg)](https://badge.fury.io/js/fl-observable-socket)
 
 # fantasy-land observable-socket
 
