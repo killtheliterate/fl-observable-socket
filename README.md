@@ -11,7 +11,7 @@ with more algebra. Works with [ws](https://github.com/websockets/ws) and
 ## Install:
 
 ```shell
-npm i observable-socket -S
+npm i fl-observable-socket -S
 ```
 
 ## Use:
