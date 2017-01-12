@@ -1,9 +1,8 @@
+import { Future } from 'fluture/es5'
 import { create } from '@most/create'
 import { fromEvent } from 'most'
 
-import { Future } from 'fluture/es5'
-
-function FLSocket (_ws) {
+function FLObservableSocket (_ws) {
   const _open = fromEvent('open', _ws)
   const _close = fromEvent('close', _ws)
   const _error = fromEvent('error', _ws)
@@ -14,6 +13,7 @@ function FLSocket (_ws) {
   const send = msg => Future(function (reject, resolve) {
     try {
       _ws.send(msg)
+
       resolve('success')
     } catch (e) {
       reject(e)
@@ -22,19 +22,22 @@ function FLSocket (_ws) {
 
   const readyToSend = msg => Future(function (reject, resolve) {
     ready()
-     ? resolve(msg)
-     : _open.take(1).observe(() => resolve(msg))
+      ? resolve(msg)
+      : _open.take(1).observe(() => resolve(msg))
   })
 
   return {
     up: message => readyToSend(message).chain(send),
 
     down: create((add, end, error) => {
-      _close.observe(end)
-      _error.observe(error)
-      _messages.observe(add)
+      const __close = _close.until(_error).take(1)
+      const __error = _error.until(_close).take(1)
+
+      __close.observe(end)
+      __error.observe(error)
+      _messages.until(__close.merge(__error)).observe(add)
     })
   }
 }
 
-export default FLSocket
+export default FLObservableSocket

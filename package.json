@@ -1,9 +1,9 @@
 {
   "name": "fl-observable-socket",
-  "version": "1.0.0-rc3",
+  "version": "1.0.0-rc4",
   "description": "",
   "main": "dist/index.js",
-  "module": "src/index.js",
+  "module": "src/_index.js",
   "scripts": {
     "build": "webpack --optimize-minimize --display-used-exports",
     "build:dev": "webpack",
@@ -14,8 +14,27 @@
   "standard": {
     "globals": ["it", "xit", "describe"]
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "most",
+    "fantasy-land",
+    "observable",
+    "socket",
+    "websocket",
+    "ws"
+  ],
+  "bugs": {
+    "url": "https://github.com/killtheliterate/fl-observable-socket/issues"
+  },
+  "homepage": "https://github.com/killtheliterate/fl-observable-socket",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/killtheliterate/fl-observable-socket.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Garrett Dawson <killtheliterate@gmail.com> (http://thedrearlight.com/)"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
