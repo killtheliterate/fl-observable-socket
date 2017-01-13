@@ -1,6 +1,6 @@
 {
   "name": "fl-observable-socket",
-  "version": "1.0.0-rc6",
+  "version": "1.0.0-rc7",
   "description": "Wraps a websocket in an Observable.",
   "main": "dist/index.js",
   "module": "src/_index.js",

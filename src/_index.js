@@ -1,6 +1,6 @@
 import { Future } from 'fluture/es5'
 import { create } from '@most/create'
-import { fromEvent } from 'most'
+import { fromEvent, merge } from 'most'
 
 function FLObservableSocket (_ws) {
   const _open = fromEvent('open', _ws)
@@ -30,12 +30,9 @@ function FLObservableSocket (_ws) {
     up: message => readyToSend(message).chain(send),
 
     down: create((add, end, error) => {
-      const __close = _close.until(_error).take(1)
-      const __error = _error.until(_close).take(1)
+      const done = merge(_close.tap(end), _error.tap(error)).take(1)
 
-      __close.observe(end)
-      __error.observe(error)
-      _messages.until(__close.merge(__error)).observe(add)
+      _messages.until(done).observe(add)
     })
   }
 }
